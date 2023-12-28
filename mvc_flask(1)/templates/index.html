@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>  
+<html> 
+    <head>     
+        <link rel="stylesheet" type="text/css" href="/static/css/main.css" />     
+        <title> Карточка читателя </title>
+        {{book_id}}            
+         {% macro render_table(table_name, relation, id) %}         
+         <p>            
+            <b>{{table_name}} </b>         
+         </p>         
+         {% set n = len(relation) %}         
+         <table>             
+            <tr>             
+                {% for name in relation.dtypes.index %}               
+                {% if name != id %}                 
+                <th>{{name}}</th>               
+                {% endif %}                    
+                {% endfor %}             
+            </tr>             
+            <tbody>                          
+                {% for i in range(n) %}                    
+                <tr>                 
+                    {% for name in relation.dtypes.index %}                  
+                    {% if name != id %}                                  
+                    <td>                   
+                        {% if relation.loc[i, name] == None %}                      
+                        <form action = '' method ="get">                        
+                            <input type="hidden" name = return value={{relation.loc[i, "book_reader_id"]}}>                        
+                            <input type="submit" value="Сдать">                      
+                        </form>                                          
+                        {% else %}                                   
+                        {{ relation.loc[i, name] }}                     
+                        {% endif %}                          
+                    </td>                   
+                    {% endif %}                  
+                    {% endfor %}              
+                </tr>           
+                {% endfor %}         
+            </tbody>         
+        </table>     
+        {% endmacro %}  
+        {% macro render_select(select_name, combo_box,id) %}          
+                   <select name='{{select_name}}'>         
+                        {% for i in range(len(combo_box)) %}  
+                        <option value="{{i+1}}" {% if combo_box.loc[i, "reader_id"] == id %} selected {%endif%}>{{combo_box.loc[i, "reader_name"]}}</option>         
+                        {% endfor %}        
+                    </select>
+        {% endmacro %}       
+    </head> 
+    <p>
+    </p>
+    <body>   
+        <div class=menu>     
+            <ul>         
+                <li class = active><a href={{ url_for("index")}}>Читатель</a></li>   
+                <li>Книги</li>
+                <li>Статистика</li>
+            </ul>   
+        </div>   
+        <div class = block>      
+                <p>        
+                    <form action='' method ="get">        
+                        Читатель: 
+                        {{ render_select("reader", combo_box, reader_id) }}                                     
+                        <input type="submit" value="Найти">         
+                    </form>          
+                </p>               
+            <form action="{{url_for('new_reader')}}" method="get">             
+                <input type="submit" value="Новый читатель">         
+            </form>           
+         {{ render_table("Карточка", book_reader, "book_reader_id") }}      
+        </div>    
+        <div>
+            <form action="{{url_for('search')}}" method="get">
+                <input type="submit" value="Взять книгу">         
+            </form>
+        </div> 
+    </body> 
+</html>

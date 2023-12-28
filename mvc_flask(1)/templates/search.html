@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
+    <title> Поиск книги </title>
+
+    {% macro render_checkbox(name, relation, selected) %}
+        {% for i in range(relation|length) %}
+            {% set value = relation.loc[i, relation.dtypes.index[0]] %}
+            <div class="row">
+            <input type="checkbox" name="{{name}}" value="{{value}}" 
+                {% if value|string in selected %} checked {% endif %}/>
+                {{relation.loc[i, relation.dtypes.index[1]]|string + " (" + relation.loc[i, relation.dtypes.index[2]]|string + ")"}}
+            </div>
+        {% endfor %}
+    {% endmacro %}
+
+    {% macro render_card(relation) %}
+    {% set n = relation|length %}
+            <div class = 'all_card'>
+                {% for i in range(n) %}
+                <div class="card">
+                    <div class="column">
+                        {% set idd = relation.loc[i, 'book_id'] %}
+                        {% for name in relation.dtypes.index %}
+                            <div class="row"><b>{{name}}</b>: {{ relation.loc[i, name] }}</div>
+
+                        {% endfor %}
+                        <form action='{{url_for("index")}}' method ="get">
+                            <button type="submit" value='{{idd}}'
+                                    name="book" {% if relation.loc[i, 'Количество'] == 0  %} disabled {% endif %}>
+                                Выбрать</button>
+                        </form>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+    {% endmacro %}
+
+</head>
+<body>
+    <div class=menu>
+        <ul>
+            <li class = active><a href={{ url_for("search")}}>Поиск книги</a></li>
+        </ul>
+    </div>
+    <div class = 'row'>
+        <p>
+            <form action='' method ="post">
+                <div class="row checkboxs">
+                    <div class = 'column'>
+                        <div class="column">
+                            <details {% if checked_list_authors !=[] %} open {%endif%}><summary>Авторы</summary>
+                                {{render_checkbox('authors', author_box, checked_list_authors)}}
+                            </details>
+                            <details {% if checked_list_genre !=[] %} open {%endif%}><summary>Жанры</summary>
+                                {{render_checkbox('genre', genre_box, checked_list_genre)}}
+                            </details>
+                            <details {% if checked_list_publisher !=[] %} open {%endif%}><summary>Издательства</summary>
+                                {{render_checkbox('publisher', publisher_box, checked_list_publisher)}}
+                            </details>
+                        </div>
+                        <input type="submit" value="Очистить" name="reset" />
+                        <input type="submit" value="Найти" name="confirm" />
+                    </div>
+                </div> 
+            </form> 
+        </p>
+        <p>
+            <div class = 'column'>
+                <form action='{{url_for("index")}}' method ="get">
+                    <input type="submit" name = 'noselect' value="Не выбирать книгу" />
+                </form> 
+                {{render_card( filter_box)}}
+            </div>
+        </p>
+    </div>
+</body>
+</html>

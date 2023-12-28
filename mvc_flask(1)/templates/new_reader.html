@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>  
+<html> 
+    <head>     
+        <link rel="stylesheet" type="text/css" href="/static/css/main.css" />     
+        <title> Новый читатель </title>            
+    </head> 
+    <p>
+    </p>
+    <body>   
+        <div class=menu>     
+            <ul>         
+                <li class = active><a href={{url_for("new_reader")}}>Читатель</a></li></ul>   
+        </div>   
+        <div class = block>      
+                <p>        
+                    <form action='{{url_for("index")}}' method ="get">        
+                        <div class="row">
+                            Имя читателя:
+                            <input type="text" name="new_reader">         
+                        </div>
+                        <div class="row">
+                            <input type="submit" value="Добавить читателя" >         
+                            <a href="{{url_for('index')}}"><input type="submit" value="Отменить"></a>
+                        </div>
+                    </form>          
+                </p>                
+        </div>     
+    </body> 
+</html>

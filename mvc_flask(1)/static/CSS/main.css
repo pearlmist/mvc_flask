@@ -1,0 +1,99 @@
+ /* меню страниц */ 
+ .menu {     
+    background-color: #f1f1f1;    
+    box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.4);     
+    width: 100%; 
+}  
+/*Теперь уберем маркеры со списка и произведем выравнивание его элементов в одну линию*/  
+.menu li {     
+    display: inline-block;     
+    vertical-align: top;      
+    padding: 10px;       
+    color: #6f6d6d; 
+}  
+.menu a {     
+        text-decoration: none; 
+        /* Убирает подчеркивание для ссылок */     
+        color: #6f6d6d;    }   
+.menu li:hover 
+{     
+    background-color: #f87777;     
+    cursor: pointer;    
+    color: #f8f8f8; } 
+.menu ul {     
+    padding: 0px; 
+}  
+.active{    
+    background-color: #f87777;     
+    color: #f8f8f8; }  
+.active a:visited{     
+    color: #f8f8f8; 
+} 
+.menu  a:hover{     
+    color: #f8f8f8; 
+}  
+.block {     
+    padding: 10px 20px; 
+} 
+.all_card{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.card{
+    border: 1px solid #472323;
+    border-radius: 20px;
+    margin: 30px;
+    padding: 10px;
+    width: 300px;
+    height: 330px;
+    background-color: #eee;
+    box-shadow: 0px 4px 4px rgba(29, 6, 6, 0.25);
+}
+table {
+	width: 100%;
+	margin-bottom: 20px;
+	border: 1px solid #dddddd;
+	border-collapse: collapse; 
+}
+table th {
+	font-weight: bold;
+	padding: 5px;
+	background: #efefef;
+	border: 1px solid #dddddd;
+}
+table td {
+	border: 1px solid #dddddd;
+	padding: 5px;
+}
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.row{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+.column{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+details > summary {
+    padding: 5px;
+    background-color: #eee;
+    color: #333;
+    border: 1px #ccc solid;
+    cursor: pointer;
+    margin: 5px;
+}
+.checkboxs{
+    padding: 5px;
+    margin: 5px;
+    color: #720707;
+    cursor: pointer;
+    width: 10%;
+}
+input{
+    margin:10 px;
+}
